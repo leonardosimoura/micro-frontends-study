@@ -24,6 +24,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "app1": "^1.0.0",
+    "host": "^0.0.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
   }

@@ -39,7 +39,7 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "host",
       remotes: {
-        app2: "app1@http://localhost:3002/remoteEntry.js",
+        app1: "app1@http://localhost:3002/remoteEntry.js",
       },
       shared: ["react", "react-dom"],
     }),
