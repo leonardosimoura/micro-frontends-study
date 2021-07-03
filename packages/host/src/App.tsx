@@ -10,8 +10,7 @@ const App = () => {
 
     <div>
       <h1>Typescript</h1>
-      <h2>Host</h2>
-      <h2> {state && state.name}</h2>
+      <h2>{state && state.name}</h2>
       <React.Suspense fallback="Loading Button">
         <RemoteButton />
       </React.Suspense>
