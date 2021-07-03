@@ -1,12 +1,12 @@
 import * as React from "react";
 
-import LocalButton from "./Button";
+import LocalApp1 from "./App1";
 
 const App = () => (
   <div>
     <h1>Typescript</h1>
     <h2>App 2</h2>
-    <LocalButton />
+    {/* <LocalApp1 store={{}} /> */}
   </div>
 );
 

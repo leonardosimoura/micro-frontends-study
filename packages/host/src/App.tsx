@@ -1,18 +1,63 @@
 import * as React from "react";
-import { Provider, useSelector } from 'react-redux';
-import store, { IRootState } from './store';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import store from './store';
+import { notification } from "./store/actions";
+import { IRootState } from "./store/reducer";
+import { nanoid } from 'nanoid'
+const RemoteApp1 = React.lazy(() => import("app1/App1"));
 
-const RemoteButton = React.lazy(() => import("app1/Button"));
+interface NotificationFromApp {
+  id: string,
+  title: string,
+  app: string,
+  data: any
+}
 
-const App = () => {
-  const state = useSelector((state: IRootState) => state["host"]);
+const divStyle = {
+  border: '1px solid green',
+  padding: '10px'
+};
+
+const AppName = () => {
+  const selectAppName = (state: IRootState) => state.host.name;
+  const state = useSelector(selectAppName);
   return (
 
-    <div>
-      <h1>Typescript</h1>
-      <h2>{state && state.name}</h2>
+    <h2>{state}</h2>
+  );
+}
+
+const InnerNotification = () => {
+  const selectNotificationFromApp = (state: IRootState) => state.host.notificationFromApp;
+  const state = useSelector(selectNotificationFromApp);
+  const renderNotification = (notification: NotificationFromApp) => {
+    return <li key={notification.id}>{notification.id} - {notification.app} - {notification.title}</li>
+  }
+  return (
+    <ul>{state.map(renderNotification)}</ul>
+  );
+}
+
+const App = () => {
+
+  const dispatch = useDispatch();
+
+  const dispatchNotification = () => {
+    dispatch(notification({
+      id: nanoid(),
+      title: "Nova Notificacao",
+      data: {}
+    }))
+  }
+
+  return (
+    <div style={divStyle}>
+      <AppName></AppName>
+      <InnerNotification></InnerNotification>
+      <button onClick={dispatchNotification} >New Notification From Host</button>
+      <hr></hr>
       <React.Suspense fallback="Loading Button">
-        <RemoteButton />
+        <RemoteApp1 store={store} />
       </React.Suspense>
     </div>
   );

@@ -1,31 +1,21 @@
+import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers, createStore } from "redux";
+import hostReducer from "./reducer";
 
+// const store = createStore(
+//     combineReducers({
+//         host: hostReducer
+//     }));
 
-interface IHostState {
-    name: string,
-}
-
-const initialState: IHostState = {
-    name: "Host",
-}
-const hostReducer = (
-    state: IHostState = initialState,
-    action: any
-): IHostState => {
-    switch (action.type) {
-        default:
-            return state;
-    }
-    return state;
-}
-
-export interface IRootState {
-    host: IHostState
-}
-
-const store = createStore<IRootState, any, any, any>(
-    combineReducers({
+export const store = configureStore({
+    reducer: combineReducers({
         host: hostReducer
-    }));
+    }),
+    devTools: {
+        name: 'Micro-Frontend',
+        maxAge: 50,
+    }
+});
+
 
 export default store;
