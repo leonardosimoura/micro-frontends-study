@@ -6,10 +6,10 @@
   },
   "scripts": {
     "prestart": "lerna bootstrap",
-    "start": "lerna run --scope @typescript/* --parallel start",
-    "build": "lerna run --scope @typescript/* build",
-    "serve": "lerna run --scope @typescript/* --parallel serve",
-    "clean": "lerna run --scope @typescript/* --parallel clean"
+    "start": "lerna run --scope @application/* --parallel start",
+    "build": "lerna run --scope @application/* build",
+    "serve": "lerna run --scope @application/* --parallel serve",
+    "clean": "lerna run --scope @application/* --parallel clean"
   },
   "dependencies": {}
 }
