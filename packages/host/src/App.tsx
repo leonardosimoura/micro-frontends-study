@@ -3,7 +3,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from './store';
 import { notification } from "./store/actions";
 import { IRootState } from "./store/reducer";
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 const RemoteApp1 = React.lazy(() => import("app1/App1"));
 
 interface NotificationFromApp {

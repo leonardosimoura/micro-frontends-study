@@ -55,6 +55,7 @@ const App1Wrapper = (props: App1Props) => {
     const { store } = props;
     return (
         <Provider store={store || {}}>
+            <h1> Vai Filhao</h1>
             <App1 />
         </Provider>
     );

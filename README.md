@@ -1,0 +1,1 @@
+docker run -p 3050:3000 --name mesuda --restart always -d scriptedalchemy/mf-dashboard:latest 
