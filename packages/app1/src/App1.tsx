@@ -16,7 +16,7 @@ interface ServiceComunication {
     send: Subject<any>,
 }
 const divStyle = {
-    border: '10px solid green',
+    border: '1px solid red',
     padding: '10px'
 };
 
