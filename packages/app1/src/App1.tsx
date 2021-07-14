@@ -1,6 +1,4 @@
 import * as React from "react";
-import { Provider, useDispatch, useSelector } from "react-redux";
-import { Store } from "redux";
 import { nanoid } from 'nanoid'
 import { BehaviorSubject, Subject } from "rxjs";
 
@@ -18,7 +16,7 @@ interface ServiceComunication {
     send: Subject<any>,
 }
 const divStyle = {
-    border: '1px solid red',
+    border: '10px solid green',
     padding: '10px'
 };
 

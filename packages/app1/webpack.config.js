@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MedusaPlugin = require("@module-federation/dashboard-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
 const path = require("path");
+const deps = require("./package.json").dependencies;
 
 module.exports = {
   entry: "./src/index",
@@ -46,8 +47,18 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         "./App1": "./src/App1",
+        reactVersion: "react",
+        reactDomVersion: "react-dom",
       },
-      shared: require("./package.json").dependencies,
+      shared: {
+        ...deps,
+        react: {
+          singleton: true,
+        },
+        "react-dom": {
+          singleton: true,
+        },
+      },
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",

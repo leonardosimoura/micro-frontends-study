@@ -108,7 +108,7 @@ const Notifications = () => {
 function App() {
   const [system, setSystem] = React.useState(undefined);
 
-  function setAppV1_0_0() {
+  function setApp1V1_0_0() {
     setSystem({
       url: "http://localhost:3002/1.0.0.remoteEntry.js",
       scope: "app1_1_0_0",
@@ -116,7 +116,7 @@ function App() {
     });
   }
 
-  function setAppV1_1_0() {
+  function setApp1V1_1_0() {
     setSystem({
       url: "http://localhost:3002/1.1.0.remoteEntry.js",
       scope: "app1_1_1_0",
@@ -124,10 +124,18 @@ function App() {
     });
   }
 
-  function setAppV1_2_0() {
+  function setApp1V1_2_0() {
     setSystem({
       url: "http://localhost:3002/1.2.0.remoteEntry.js",
       scope: "app1_1_2_0",
+      module: "./App1",
+    });
+  }
+
+  function setApp1Latest() {
+    setSystem({
+      url: "http://localhost:3002/remoteEntry.js",
+      scope: "app1",
       module: "./App1",
     });
   }
@@ -157,10 +165,10 @@ function App() {
       </p>
       <button onClick={newNotification}>New Notification</button>
       <hr></hr>
-      <button onClick={setAppV1_0_0}>Load App 1 - V: 1.0.0</button>
-      <button onClick={setAppV1_1_0}>Load App 1 - V: 1.1.0</button>
-      <button onClick={setAppV1_2_0}>Load App 1 - V: 1.2.0</button>
-
+      <button onClick={setApp1V1_0_0}>Load App 1 - V: 1.0.0</button>
+      <button onClick={setApp1V1_1_0}>Load App 1 - V: 1.1.0</button>
+      <button onClick={setApp1V1_2_0}>Load App 1 - V: 1.2.0</button>
+      <button onClick={setApp1Latest}>Load App 1 - V: latest</button>
       <div style={{ marginTop: "2em" }}>
         <System system={system} />
       </div>

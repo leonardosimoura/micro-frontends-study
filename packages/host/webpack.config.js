@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
 const path = require("path");
+const deps = require("./package.json").dependencies;
 
 module.exports = {
   entry: "./src/index",
@@ -12,7 +13,10 @@ module.exports = {
     port: 3001,
   },
   output: {
+    filename: "[name].[contenthash].js",
+    chunkFilename: "[name].[contenthash].js",
     publicPath: "auto",
+    uniqueName: `host.${require("./package.json").version}`,
   },
   module: {
     rules: [
@@ -28,20 +32,16 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "app1",
-      // adds react as shared module
-      // version is inferred from package.json
-      // there is no version check for the required version
-      // so it will always use the higher version found
+      name: "host",
+      library: { type: "var", name: "host__REMOTE_VERSION__" },
+      filename: "remoteEntry.js",
       shared: {
+        ...deps,
         react: {
-          import: "react", // the "react" package will be used a provided and fallback module
-          shareKey: "react", // under this name the shared module will be placed in the share scope
-          shareScope: "default", // share scope with this name will be used
-          singleton: true, // only a single version of the shared module is allowed
+          singleton: true,
         },
         "react-dom": {
-          singleton: true, // only a single version of the shared module is allowed
+          singleton: true,
         },
       },
     }),
