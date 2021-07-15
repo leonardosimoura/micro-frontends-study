@@ -2,8 +2,7 @@ import * as React from "react";
 import { nanoid } from 'nanoid'
 import { BehaviorSubject, Subject } from "rxjs";
 import { version } from '../package.json';
-
-interface App1Props {
+interface App2Props {
     serviceComunication: ServiceComunication;
 }
 interface Notification {
@@ -17,11 +16,11 @@ interface ServiceComunication {
     send: Subject<any>,
 }
 const divStyle = {
-    border: '10px solid red',
+    border: '10px solid blue',
     padding: '10px'
 };
 
-const App1 = (props: App1Props) => {
+const App2 = (props: App2Props) => {
 
     const [notification, setNotification] = React.useState<Array<any>>([]);
 
@@ -40,8 +39,8 @@ const App1 = (props: App1Props) => {
         props.serviceComunication.send.next(
             {
                 id: nanoid(),
-                app: 'App1',
-                title: 'New Notification From App1 V: ' + version,
+                app: 'App2',
+                title: 'New Notification From App2 V: ' + version,
                 data: {}
             }
         );
@@ -49,7 +48,7 @@ const App1 = (props: App1Props) => {
 
     return (
         <div style={divStyle}>
-            <h1>App1</h1>
+            <h1>App2</h1>
             <button onClick={dispatchNotification} >New Notification From App</button>
             <hr></hr>
             <ul> {notification.map(renderNotification)}</ul>
@@ -58,4 +57,4 @@ const App1 = (props: App1Props) => {
     );
 }
 
-export default App1;
+export default App2;
