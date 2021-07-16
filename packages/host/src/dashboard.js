@@ -32,6 +32,7 @@ import { serviceComunication } from "./servicesComunication";
 import { nanoid } from 'nanoid';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import ListItemApps from "./listItemApps"
 
 function Copyright() {
     return (
@@ -244,31 +245,13 @@ const Notifications = () => {
     );
 }
 
-
-function renderApps(apps, fn) {
-    // onClick={fn({
-    //     url: app.source,
-    //     scope: app.id,
-    //     module: app.name,
-    // })}
-    return apps.map(app => {
-        return <ListItem button key={app.id} >
-            <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary={app.id + "-" + app.version} />
-        </ListItem>
-    })
-}
-
-
 export default function Dashboard() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [apps, setApps] = React.useState([]);
 
     React.useEffect(() => {
-        //getApps();
+        getApps();
     }, []);
 
     const getApps = () => {
@@ -374,47 +357,11 @@ export default function Dashboard() {
                 </div>
                 <Divider />
                 <List>
-                    <ListItem button onClick={getApps}>
-                        <ListItemIcon>
-                            <DashboardIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Load" />
-                    </ListItem>
                     {
-                        renderApps(apps, (data) => {
-                            setSystem(data);
+                        apps.map(item => {
+                            return <ListItemApps app={item} fn={setSystem}></ListItemApps>
                         })
                     }
-                    <ListItem button onClick={setApp1V1_0_0}>
-                        <ListItemIcon>
-                            <DashboardIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="App 1 - V: 1.0.0" />
-                    </ListItem>
-                    <ListItem button onClick={setApp1V1_1_0}>
-                        <ListItemIcon>
-                            <ShoppingCartIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="App 1 - V: 1.1.0" />
-                    </ListItem>
-                    <ListItem button onClick={setApp1V1_2_0}>
-                        <ListItemIcon>
-                            <PeopleIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="App 1 - V: 1.2.0" />
-                    </ListItem>
-                    <ListItem button onClick={setApp1Latest}>
-                        <ListItemIcon>
-                            <BarChartIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="App 1 - V: latest" />
-                    </ListItem>
-                    <ListItem button onClick={setApp2Latest}>
-                        <ListItemIcon>
-                            <LayersIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="App 2 - V: latest" />
-                    </ListItem>
                 </List>
             </Drawer>
             <main className={classes.content}>

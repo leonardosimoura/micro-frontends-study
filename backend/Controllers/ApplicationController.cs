@@ -31,6 +31,7 @@ namespace backend.Controllers
                 Applications = s.Applications.Select(dep => new
                 {
                     dep.Id,
+                    dep.Name,
                     dep.Source,
                     dep.Version
                 })
@@ -47,6 +48,7 @@ namespace backend.Controllers
                 Applications = s.Applications.Select(dep => new
                 {
                     dep.Id,
+                    dep.Name,
                     dep.Source,
                     dep.Version
                 })
