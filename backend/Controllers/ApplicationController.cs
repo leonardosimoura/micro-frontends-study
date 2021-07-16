@@ -12,10 +12,10 @@ namespace backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ApplicationController : ControllerBase
+    public class ModuleController : ControllerBase
     {
         private AppDbContext Context { get; }
-        public ApplicationController(AppDbContext context)
+        public ModuleController(AppDbContext context)
         {
             Context = context;
             Context.Database.EnsureCreated();
@@ -24,35 +24,53 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(Context.Applications.Select(s => new
+            return Ok(Context.Modules.Select(s => new
             {
                 s.Id,
                 s.Name,
-                Dependencies = s.Dependencies.Select(dep => new
+                Applications = s.Applications.Select(dep => new
                 {
-                    dep.DependencyId,
-                    dep.DependencyVersion
+                    dep.Id,
+                    dep.Source,
+                    dep.Version
                 })
             }).ToList());
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetById([FromRoute] string id)
+        {
+            return Ok(Context.Modules.Select(s => new
+            {
+                s.Id,
+                s.Name,
+                Applications = s.Applications.Select(dep => new
+                {
+                    dep.Id,
+                    dep.Source,
+                    dep.Version
+                })
+            }).FirstOrDefault(f => f.Id == id));
+        }
+
         [HttpPost]
-        public IActionResult Post([FromBody] AddApplicationViewModel model)
+        public IActionResult Post([FromBody] AddModuleViewModel viewModel)
         {
             try
             {
-                var app = new Application();
-                app.Id = model.Id;
-                app.Name = model.Name;
-                app.Versions = model.Versions.Select(s => new ApplicationVersion()
+                var module = new Module();
+                module.Id = viewModel.Id;
+                module.Name = viewModel.Name;
+                module.Applications = viewModel.Applications.Select(app => new Application()
                 {
                     Id = app.Id,
-                    Source = s.Source,
-                    Version = s.Version
+                    Name = app.Name,
+                    Source = app.Source,
+                    Version = app.Version
                 }).ToList();
-                Context.Applications.Add(app);
+                Context.Modules.Add(module);
                 Context.SaveChanges();
-                return Ok(app.Id);
+                return Ok(module.Id);
             }
             catch (System.Exception ex)
             {
@@ -66,7 +84,7 @@ namespace backend.Controllers
         {
             try
             {
-                Context.Applications.Remove(Context.Applications.FirstOrDefault(f => f.Id == id));
+                Context.Modules.Remove(Context.Modules.FirstOrDefault(f => f.Id == id));
                 Context.SaveChanges();
                 return Ok();
             }
@@ -77,15 +95,17 @@ namespace backend.Controllers
         }
 
 
+        public class AddModuleViewModel
+        {
+            public string Id { get; set; }
+            public string Name { get; set; }
+            public IEnumerable<AddApplicationViewModel> Applications { get; set; }
+        }
+
         public class AddApplicationViewModel
         {
             public string Id { get; set; }
             public string Name { get; set; }
-            public IEnumerable<AddApplicationVersionViewModel> Versions { get; set; }
-        }
-
-        public class AddApplicationVersionViewModel
-        {
             public string Source { get; set; }
             public string Version { get; set; }
         }
