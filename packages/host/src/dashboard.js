@@ -31,6 +31,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import { serviceComunication } from "./servicesComunication";
 import { nanoid } from 'nanoid';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 function Copyright() {
     return (
@@ -243,9 +244,47 @@ const Notifications = () => {
     );
 }
 
+
+function renderApps(apps, fn) {
+    // onClick={fn({
+    //     url: app.source,
+    //     scope: app.id,
+    //     module: app.name,
+    // })}
+    return apps.map(app => {
+        return <ListItem button key={app.id} >
+            <ListItemIcon>
+                <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary={app.id + "-" + app.version} />
+        </ListItem>
+    })
+}
+
+
 export default function Dashboard() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [apps, setApps] = React.useState([]);
+
+    React.useEffect(() => {
+        //getApps();
+    }, []);
+
+    const getApps = () => {
+        if (apps.length == 0)
+            axios.get('https://localhost:5001/api/Module/host')
+                .then(function (response) {
+                    // handle success
+                    console.log(response);
+                    setApps(response.data.applications)
+
+                })
+                .catch(function (error) {
+                    console.error(error);
+                })
+    }
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -295,6 +334,8 @@ export default function Dashboard() {
         });
     }
 
+
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -333,6 +374,17 @@ export default function Dashboard() {
                 </div>
                 <Divider />
                 <List>
+                    <ListItem button onClick={getApps}>
+                        <ListItemIcon>
+                            <DashboardIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Load" />
+                    </ListItem>
+                    {
+                        renderApps(apps, (data) => {
+                            setSystem(data);
+                        })
+                    }
                     <ListItem button onClick={setApp1V1_0_0}>
                         <ListItemIcon>
                             <DashboardIcon />
@@ -378,6 +430,6 @@ export default function Dashboard() {
                     </Paper>
                 </Container>
             </main>
-        </div>
+        </div >
     );
 }

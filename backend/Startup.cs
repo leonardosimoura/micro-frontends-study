@@ -30,6 +30,14 @@ namespace backend
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors(options =>
+                    {
+                        options.AddDefaultPolicy(
+                            builder =>
+                            {
+                                builder.AllowAnyOrigin().AllowAnyMethod();
+                            });
+                    });
             services.AddControllers()
              .AddJsonOptions(options =>
                {
@@ -59,7 +67,7 @@ namespace backend
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
