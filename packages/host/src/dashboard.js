@@ -258,8 +258,6 @@ export default function Dashboard() {
         if (apps.length == 0)
             axios.get('https://localhost:5001/api/Module/host')
                 .then(function (response) {
-                    // handle success
-                    console.log(response);
                     setApps(response.data.applications)
 
                 })

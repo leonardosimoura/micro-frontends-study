@@ -14,8 +14,7 @@ export default function ListItemApps(props) {
             scope: app.id + "_" + app.version.split(".").join("_"),
             module: "./" + app.name,
         };
-        console.log(data);
-        props.fn(data)
+        props.fn(data);
     }
 
     return <ListItem button key={app.id + "-" + app.version} onClick={onClick} >
