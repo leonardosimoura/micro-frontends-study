@@ -1,5 +1,9 @@
 # POC de Micro Frontends com [Module Federation](https://webpack.js.org/concepts/module-federation/)
 
+# Mesuda
+
+docker run -p 3050:3000 -it scriptedalchemy/mf-dashboard:latest
+
 # Setup
 
 1. Host: 
