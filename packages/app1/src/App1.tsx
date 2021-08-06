@@ -1,13 +1,13 @@
 import * as React from "react";
-import { nanoid } from 'nanoid'
-import { BehaviorSubject, Subject } from "rxjs";
-import { version } from '../package.json';
+import { Subject } from "rxjs";
+const RemoteButtonNotification = React.lazy(() => import("components/ButtonNotification"));
 
 interface App1Props {
     serviceComunication: ServiceComunication;
 }
 interface Notification {
     id: string,
+    app: string,
     title: string,
     data: any
 }
@@ -35,22 +35,18 @@ const App1 = (props: App1Props) => {
     const renderNotification = (notification: Notification) => {
         return <li key={notification.id}>{notification.id} - {notification.title}</li>
     }
-    const dispatchNotification = () => {
 
-        props.serviceComunication.send.next(
-            {
-                id: nanoid(),
-                app: 'App1',
-                title: 'New Notification From App1 V: ' + version,
-                data: {}
-            }
-        );
+    const onNotification = (notification: Notification) => {
+        props.serviceComunication.send.next(notification);
     }
 
     return (
         <div style={divStyle}>
             <h1>App1</h1>
-            <button onClick={dispatchNotification} >New Notification From App</button>
+
+            <React.Suspense fallback="Loading Button">
+                <RemoteButtonNotification onNotification={onNotification} />
+            </React.Suspense>
             <hr></hr>
             <ul> {notification.map(renderNotification)}</ul>
         </div>

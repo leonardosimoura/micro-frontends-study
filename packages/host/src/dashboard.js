@@ -357,7 +357,7 @@ export default function Dashboard() {
                 <List>
                     {
                         apps.map(item => {
-                            return <ListItemApps app={item} fn={setSystem}></ListItemApps>
+                            return <ListItemApps key={item.id} app={item} fn={setSystem}></ListItemApps>
                         })
                     }
                 </List>

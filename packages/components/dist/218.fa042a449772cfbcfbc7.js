@@ -1,0 +1,1 @@
+(self.webpackChunkcomponents_1_0_0=self.webpackChunkcomponents_1_0_0||[]).push([[218],{218:(t,o,n)=>{"use strict";n.r(o),n.d(o,{default:()=>a});var i=n(661),e=n(127);const a=t=>i.createElement("button",{onClick:()=>{t.onNotification&&t.onNotification({id:(0,e.nanoid)(),app:"App2",title:"New Notification From App2 V: 1.0.0",data:{}})}},"New Notification From App")}}]);
