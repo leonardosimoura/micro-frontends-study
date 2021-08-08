@@ -4,6 +4,7 @@ import { BehaviorSubject, Subject } from "rxjs";
 import { version } from '../package.json';
 interface App2Props {
     onNotification(notification: Notification): void;
+    label: string;
 }
 interface Notification {
     id: string,
@@ -12,6 +13,10 @@ interface Notification {
     data: any
 }
 
+const buttonStyle = {
+    color: 'red'
+};
+
 const ButtonNotification = (props: App2Props) => {
 
     const dispatchNotification = () => {
@@ -19,13 +24,13 @@ const ButtonNotification = (props: App2Props) => {
             props.onNotification({
                 id: nanoid(),
                 app: 'App2',
-                title: 'New Notification From App2 V: ' + version,
+                title: 'New Notification From Remote components package V: ' + version,
                 data: {}
             });
     }
 
     return (
-        <button onClick={dispatchNotification} >New Notification From App</button>
+        <button style={buttonStyle} onClick={dispatchNotification} >{props.label ?? "New notification"}</button>
     );
 }
 

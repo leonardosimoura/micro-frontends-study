@@ -1,8 +1,8 @@
 # POC de Micro Frontends com [Module Federation](https://webpack.js.org/concepts/module-federation/)
 
-# Mesuda
+# Mesuda Dashboard
 
-docker run -p 3050:3000 -it scriptedalchemy/mf-dashboard:latest
+docker run --name medusa --restart always -d -p 3050:3000 -it scriptedalchemy/mf-dashboard:latest
 
 # Setup
 
