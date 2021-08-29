@@ -22,6 +22,11 @@ docker run --name medusa --restart always -d -p 3050:3000 -it scriptedalchemy/mf
     App de exemplo que utiliza a interface de comunicaçao do fornecida pelo Host
     Utiliza o React 16.13.0
 
+4. Components:
+
+    Lib compartilhada de componenetes para ser consumida pelas aplicações.
+    Utiliza o React 16.13.0
+
 # TODO
 
 - Migrar o Host para TS
@@ -36,3 +41,7 @@ Dessa maneira é possivel utilizar essa abordagem para construir:
 2. Um host que teria itens comuns como autenticação, notificacoes, etc e carregaria as aplicações remotas, consumiria o backend para saber quais aplicações carregar.
 3. Várias aplicações remotas, com liberdade quanto a versionamento de bibliotecas.
 4. Construir uma biblioteca comum de componentes/services e atualiza-la em todos por meio do backend.
+
+# Pontos de atenção 
+
+1. Compartilhar types entre os projetos em TS. Pode ser algo a mais durante desenvolvimento de libs compartilhadas

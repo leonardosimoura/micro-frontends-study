@@ -248,22 +248,48 @@ const Notifications = () => {
 export default function Dashboard() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [apps, setApps] = React.useState([]);
+    const [apps, setApps] = React.useState([
+        {
+            source: "http://localhost:3002/1.0.0.remoteEntry.js",
+            id: "app1",
+            version: "1.0.0",
+            name: "App1"
+        },
+        {
+            source: "http://localhost:3002/1.1.0.remoteEntry.js",
+            id: "app1",
+            version: "1.1.0",
+            name: "App1"
+        },
+        {
+            source: "http://localhost:3002/1.2.0.remoteEntry.js",
+            id: "app1",
+            version: "1.2.0",
+            name: "App1"
+        },
+
+        {
+            source: "http://localhost:3003/1.0.0.remoteEntry.js",
+            id: "app2",
+            version: "1.0.0",
+            name: "App2"
+        }
+    ]);
 
     React.useEffect(() => {
         getApps();
     }, []);
 
     const getApps = () => {
-        if (apps.length == 0)
-            axios.get('https://localhost:5001/api/Module/host')
-                .then(function (response) {
-                    setApps(response.data.applications)
+        // if (apps.length == 0)
+        //     axios.get('https://localhost:5001/api/Module/host')
+        //         .then(function (response) {
+        //             setApps(response.data.applications)
 
-                })
-                .catch(function (error) {
-                    console.error(error);
-                })
+        //         })
+        //         .catch(function (error) {
+        //             console.error(error);
+        //         })
     }
 
     const handleDrawerOpen = () => {
@@ -274,48 +300,6 @@ export default function Dashboard() {
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [system, setSystem] = React.useState(undefined);
-
-    function setApp1V1_0_0() {
-        setSystem({
-            url: "http://localhost:3002/1.0.0.remoteEntry.js",
-            scope: "app1_1_0_0",
-            module: "./App1",
-        });
-    }
-
-    function setApp1V1_1_0() {
-        setSystem({
-            url: "http://localhost:3002/1.1.0.remoteEntry.js",
-            scope: "app1_1_1_0",
-            module: "./App1",
-        });
-    }
-
-    function setApp1V1_2_0() {
-        setSystem({
-            url: "http://localhost:3002/1.2.0.remoteEntry.js",
-            scope: "app1_1_2_0",
-            module: "./App1",
-        });
-    }
-
-    function setApp1Latest() {
-        setSystem({
-            url: "http://localhost:3002/remoteEntry.js",
-            scope: "app1",
-            module: "./App1",
-        });
-    }
-
-    function setApp2Latest() {
-        setSystem({
-            url: "http://localhost:3003/remoteEntry.js",
-            scope: "app2",
-            module: "./App2",
-        });
-    }
-
-
 
     return (
         <div className={classes.root}>
